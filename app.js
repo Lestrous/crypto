@@ -13,7 +13,7 @@ export default (express, bodyParser, createReadStream, crypto, http, fs, Busboy,
         // .use(bodyParser.urlencoded({ extended: true }))
         // .use(bodyParser.json())
 
-        .all('/', (req, res) => {
+        .post('/', (req, res) => {
             // let busboy = new Busboy({headers: req.headers});
             //
             // busboy.on('field', (fieldname, val) => {
@@ -33,13 +33,17 @@ export default (express, bodyParser, createReadStream, crypto, http, fs, Busboy,
             // console.log(req.body);
             // console.log(req.body.key);
             // console.log(req.body.secret);
+            // console.log(req.files);
+            // console.log(key);
+            // console.log(secret);
 
-
-            let buffer = Buffer.from(secret, "base64");
-            let decrypted = crypto.privateDecrypt(key, buffer);
+            let buffer = Buffer.from(secret.data, "base64");
+            let bufferKey = Buffer.from(key.data, "base64");
+            let decrypted = crypto.privateDecrypt(bufferKey, buffer);
 
             res.send(decrypted.toString("utf8"));
 
+            // res.send();
 
             // if (req.body) {
             //     const key = req.body.key;
