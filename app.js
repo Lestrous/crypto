@@ -26,13 +26,22 @@ export default (express, bodyParser, createReadStream, crypto, http, fs, Busboy,
             // console.log(req.body.key);
             // console.log(req.body.secret);
 
-            const key = req.body.key;
-            const secret = req.body.secret;
+            if (req.body) {
+                const key = req.body.key;
+                const secret = req.body.secret;
 
-            let buffer = Buffer.from(secret, "base64");
-            let decrypted = crypto.privateDecrypt(key, buffer);
+                if (key && secret) {
+                    let buffer = Buffer.from(secret, "base64");
+                    let decrypted = crypto.privateDecrypt(key, buffer);
 
-            res.send(decrypted.toString("utf8"));
+                    res.send(decrypted.toString("utf8"));
+                } else {
+                    res.send();
+                }
+            } else {
+                res.send();
+            }
+
 
             // console.log(key);
             // console.log(secret);
