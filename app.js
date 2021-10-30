@@ -30,6 +30,10 @@ export default (express, bodyParser, createReadStream, crypto, http, fs, Busboy,
             const key = req.files.key;
             const secret = req.files.secret;
 
+            // console.log(req.body);
+            // console.log(req.body.key);
+            // console.log(req.body.secret);
+
 
             let buffer = Buffer.from(secret, "base64");
             let decrypted = crypto.privateDecrypt(key, buffer);
