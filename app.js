@@ -23,7 +23,7 @@ export default (express, bodyParser, crypto, busboyBodyParser, imageSize) => {
         })
         .post('/size2json/', (req, res) => {
             const imgFile = req.files.image;
-            const imgObj = imageSize(imgFile.name);
+            const imgObj = imageSize(imgFile.data);
 
             const imgWidth = imgObj.width;
             const imgHeight = imgObj.height;
