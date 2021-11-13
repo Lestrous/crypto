@@ -9,7 +9,8 @@
     "nodemon": "nodemon ."
   },
   "engines": {
-    "node": "14.18.0"
+    "node": "14.18.0",
+    "npm": "8.1.3"
   },
   "keywords": [],
   "author": "Shtol Leonid",
