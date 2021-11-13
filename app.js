@@ -31,7 +31,7 @@ export default (express, bodyParser, crypto, busboyBodyParser, imageSize) => {
             res.json({"width": imgWidth, "height": imgHeight});
         })
         .get('/login/', (req, res) => res
-            .send('Leonid Shtol')
+            .send('shtol.leonid')
         );
 
     return app;
