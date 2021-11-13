@@ -1,4 +1,4 @@
-export default (express, bodyParser, crypto, busboyBodyParser) => {
+export default (express, bodyParser, crypto, busboyBodyParser, imageSize) => {
     const app = express();
 
     const CORS = {
@@ -21,8 +21,17 @@ export default (express, bodyParser, crypto, busboyBodyParser) => {
 
             res.send(decrypted.toString("utf8"));
         })
+        .post('/size2json/', (req, res) => {
+            const imgFile = req.files.image;
+            const imgObj = imageSize(imgFile.name);
+
+            const imgWidth = imgObj.width;
+            const imgHeight = imgObj.height;
+
+            res.json({"width": imgWidth, "height": imgHeight});
+        })
         .get('/login/', (req, res) => res
-            .send('Штоль')
+            .send('Leonid Shtol')
         );
 
     return app;
