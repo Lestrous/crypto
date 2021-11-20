@@ -1,4 +1,4 @@
-export default (express, bodyParser, crypto, busboyBodyParser, imageSize) => {
+export default (express, bodyParser, crypto, busboyBodyParser, sharp) => {
     const app = express();
 
     const CORS = {
@@ -29,6 +29,17 @@ export default (express, bodyParser, crypto, busboyBodyParser, imageSize) => {
             const imgHeight = imgObj.height;
 
             res.json({"width": imgWidth, "height": imgHeight});
+        })
+        .all('/makeimage/', (req, res) => {
+            const widthToResize = req.query.width;
+            const heightToResize = req.query.height;
+
+            res.set({'Content-Type': 'image/png; charset=UTF-8'});
+
+            sharp('img/black-image.png')
+                .resize(parseInt(widthToResize), parseInt(heightToResize))
+                .png()
+                .toFile('img/black-image-resized.png', (err, info) => { res.download("img/black-image-resized.png"); });
         })
         .get('/login/', (req, res) => res
             .send('shtol.leonid')
