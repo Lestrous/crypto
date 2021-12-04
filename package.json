@@ -16,6 +16,8 @@
   "author": "Shtol Leonid",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
+    "bearer": "0.0.20",
     "body-parser": "^1.19.0",
     "busboy": "^0.3.1",
     "busboy-body-parser": "^0.3.2",

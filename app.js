@@ -1,4 +1,4 @@
-export default (express, bodyParser, crypto, busboyBodyParser, sharp) => {
+export default (express, bodyParser, crypto, busboyBodyParser, sharp, axios, Bearer) => {
     const app = express();
 
     const CORS = {
@@ -40,6 +40,35 @@ export default (express, bodyParser, crypto, busboyBodyParser, sharp) => {
                 .resize(parseInt(widthToResize), parseInt(heightToResize))
                 .png()
                 .toFile('img/black-image-resized.png', (err, info) => { res.download("img/black-image-resized.png"); });
+        })
+        .get('/wordpress/', async (req, res) => {
+            const content = req.query.content;
+
+            const response = await axios.post(
+                'https://wordpress.kodaktor.ru/wp-json/jwt-auth/v1/token',
+                {
+                    username: 'gossjsstudent2017',
+                    password: '|||123|||456',
+                },
+            );
+
+            const token = response.data.token;
+
+            const wordpressResponse = await axios.post(
+                'https://wordpress.kodaktor.ru/wp-json/wp/v2/posts',
+                {
+                    content,
+                    title: 'shtol.leonid',
+                    status: 'publish'
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            res.send(wordpressResponse.data.id + '');
         })
         .get('/login/', (req, res) => res
             .send('shtol.leonid')
